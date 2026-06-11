@@ -269,14 +269,26 @@ def get_feature_names():
 
 
 @st.cache_data(show_spinner=False)
-def load_data():
-    train_df = pd.read_csv('fraudTrain.csv')
-    test_df  = pd.read_csv('fraudTest.csv')
-    # Use sample if files are huge to keep training fast in demo
+def load_data_safe():
+    """Load data langsung dari URL GitHub Release."""
+    # GANTI URL DI BAWAH INI DENGAN LINK YANG ANDA SALIN
+    train_path = "https://github.com/IzzanKhlsh/TestDatMin/releases/download/Dataset/fraudTrain.csv"
+    test_path  = "https://github.com/IzzanKhlsh/TestDatMin/releases/download/Dataset/fraudTest.csv"
+    
+    try:
+        # Pandas bisa membaca file langsung dari URL internet
+        train_df = pd.read_csv(train_path)
+        test_df  = pd.read_csv(test_path)
+    except Exception as e:
+        st.error(f"❌ Gagal mengunduh dataset dari GitHub Release. Error: {e}")
+        st.stop()
+        
+    # Lakukan sampling seperti kode asli Anda agar aplikasi tetap cepat
     if len(train_df) > 50_000:
         train_df = train_df.sample(n=50_000, random_state=42)
     if len(test_df) > 10_000:
         test_df = test_df.sample(n=10_000, random_state=42)
+        
     return train_df, test_df
 
 
