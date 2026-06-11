@@ -34,4 +34,4 @@ if st.button("Prediksi Data Test"):
     # Membuat DataFrame agar rapi
     hasil_df = pd.DataFrame({'Hasil Prediksi': pred})
     st.subheader("Hasil Prediksi Data Test:")
-    st.table(hasil_df.head(10)) # Menampilkan 10 hasil pertama dalam bentuk tabel
+    st.table(hasil_df.head(100)) # Menampilkan 10 hasil pertama dalam bentuk tabel
